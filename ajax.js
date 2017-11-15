@@ -88,21 +88,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
   submitButton.addEventListener('click', function(event){
     event.preventDefault();
-    var userInput = document.getElementById('timezone')
+    var userInput = document.querySelector('input[type="text"]').value;
     $.ajax({
       url: 'http://first-ajax-api.herokuapp.com/time',
       method: 'GET',
       dataType: 'text',
       data: {
-        timezone: userInput.innerText,
+        timezone: userInput,
       }
     }).done(function(response){
       console.log('You got response from /time');
       document.getElementById('step10').append(response);
     }).fail(function(jqXHR, textStatus, errorThrown){
-
-      console.log('Request failed');
-      document.getElementById('step10').append(jqXHR.responseText);
+      document.getElementById('step10').append(jqXHR.statusText);
     });
   });
 });
